@@ -7,7 +7,7 @@ CFLAGS = -Wall -Werror -Wextra -pedantic
 all: ${NAME}
 
 ${NAME}: ${OBJ}
-	${CC} ${OBJ} -o ${NAME}
+	${CC} $(CFLAGS) ${OBJ} -o ${NAME}
 
 %.o: %.c ${HEAD}
 	${CC} ${CFLAGS} -c $< -o $@
