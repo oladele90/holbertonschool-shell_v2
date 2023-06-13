@@ -2,7 +2,7 @@ CC = gcc
 SRC = shell.c helpers1.c
 OBJ = ${SRC:.c=.o}
 NAME = hsh
-CFLAGS = -Wall -Werror -Wextra -pedantic
+CFLAGS = -Wall -Werror -Wextra -pedantic -std=c99
 
 all: ${NAME}
 
