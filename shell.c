@@ -18,11 +18,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 	char *l_s;/*, *PATH, *name = "PATH="*/
 	char **split_toks;
-	int stdin_fd = dup(STDIN_FILENO);
 
 	while (1)
 	{
-		l_s = _getline(stdin_fd);
+		l_s = _getline();
 		split_toks = _split_toks(l_s);
 		if (split_toks[0] != NULL)
 			_execute(split_toks);

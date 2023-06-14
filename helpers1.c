@@ -6,50 +6,49 @@
  * Return: command
  */
 
-char *_getline(const int fd)
+char *_getline(void)
 {
-	static char buffer[READ_SIZE];
-	static ssize_t buffer_index;
-	static ssize_t read_bytes;
+    const int init_bufsize = 1024;
+    int bufsize = init_bufsize;
+    char *line = malloc(bufsize * sizeof(char));
+    int index = 0;
+    int c;
 
-	char *line = NULL;
-	size_t line_length = 0;
+    if (line == NULL) {
+        fprintf(stderr, "Memory allocation error\n");
+        exit(1);
+    }
 
-	while (1)
-	{
-		if (buffer_index >= read_bytes)
-		{
-			buffer_index = 0;
-			read_bytes = read(fd, buffer, READ_SIZE);
-			if (read_bytes <= 0)
-			{
-				if (line_length == 0)
-					return (NULL);
-				line = realloc(line, line_length + 1);
+    if (isatty(STDIN_FILENO) == 1)
+        printf("($) ");
 
-				line[line_length] = '\0';
-				return (line);
-			}
-		}
-		while (buffer_index < read_bytes)
-		{
-			if (buffer[buffer_index] == '\n')
-			{
-				line = realloc(line, line_length + 1);
+    while (1) {
+        c = getchar();
 
-				line[line_length] = '\0';
-				buffer_index++;
-				return (line);
-			}
-				line = realloc(line, line_length + 1);
+        if (c == EOF || c == '\n') {
+            line[index] = '\0';
+            break;
+        } else {
+            line[index] = c;
+        }
 
-				line[line_length] = buffer[buffer_index];
-				line_length++;
-				buffer_index++;
-		}
-	}
+        index++;
+
+        if (index >= bufsize) {
+            bufsize += init_bufsize;
+            char *new_line = realloc(line, bufsize * sizeof(char));
+            if (new_line == NULL) {
+                fprintf(stderr, "Memory allocation error\n");
+                free(line);
+                exit(1);
+            }
+            line = new_line;
+        }
+    }
+
+    return line;
+
 }
-
 /**
  * _split_toks - splits command line args into tokens
  * @line : line of arguments

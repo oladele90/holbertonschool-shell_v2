@@ -37,7 +37,7 @@ void _execute(char **args);
 char **_split_toks(char *line);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
-char *_getline(const int fd);
+char *_getline(void);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif
