@@ -1,7 +1,8 @@
 #ifndef _SHELL_H_
 #define _SHELL_H_
-
+#define READ_SIZE 5
 #include <stdio.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
@@ -34,12 +35,9 @@ size_t print_list(list_t *h);
 list_t *make_p_list(char *path, list_t *h);
 void _execute(char **args);
 char **_split_toks(char *line);
-char *_getline(void);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
-char *_getline(void);
+char *_getline(const int fd);
 /*list_t *add_node_end(list_t *head, const char *str);*/
-
-
 
 #endif
