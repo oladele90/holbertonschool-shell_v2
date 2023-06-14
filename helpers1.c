@@ -25,7 +25,17 @@ char *_getline(void)
     while (1) {
         c = getchar();
 
-        if (c == EOF || c == '\n') {
+        if (c == EOF) {
+            if (index == 0) {
+                // No input provided, treat it as an exit
+                free(line);
+                exit(0);
+            } else {
+                // EOF encountered after some input, treat it as a line termination
+                line[index] = '\0';
+                break;
+            }
+        } else if (c == '\n') {
             line[index] = '\0';
             break;
         } else {
@@ -47,7 +57,6 @@ char *_getline(void)
     }
 
     return line;
-
 }
 /**
  * _split_toks - splits command line args into tokens
