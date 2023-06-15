@@ -59,7 +59,7 @@ void _execute(char **args) {
         return;
     }
 
-    if (strcmp(args[0], "cd") == 0) {
+    if (_strcmp(args[0], "cd") == 0) {
         // Handle 'cd' command
         if (args[1] == NULL) {
             // No directory specified, change to home directory
@@ -77,7 +77,7 @@ void _execute(char **args) {
                 perror("chdir");
             }
         } 
-    }else if (strcmp(args[0], "env") == 0) {
+    }else if (_strcmp(args[0], "env") == 0) {
     // Handle 'env' command
         char **env = environ;
         while (*env != NULL) {
