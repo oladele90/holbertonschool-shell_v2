@@ -100,7 +100,8 @@ void _execute(char **args) {
 
 void change_to_home_directory()
 {
-    struct passwd *pw = getpwuid(getuid());
+    uid_t uid = get_uid();
+    struct passwd *pw = getpwuid(uid);
     if (pw == NULL) {
         // Failed to get user information
         perror("getpwuid");
@@ -111,4 +112,17 @@ void change_to_home_directory()
         // Failed to change directory
         perror("chdir");
     }
+}
+
+uid_t get_uid(void)
+{
+    const char *self_path = "/proc/self";
+    struct stat st;
+
+    if (stat(self_path, &st) == -1) {
+        perror("stat");
+        return -1;
+    }
+
+    return st.st_uid;
 }
