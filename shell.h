@@ -38,6 +38,7 @@ char **_split_toks(char *line);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
 char *_getline(void);
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif

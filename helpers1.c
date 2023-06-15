@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <stdio.h>
 
 /**
  * _getline - grabs command from line in stdin
@@ -8,46 +9,19 @@
 
 char *_getline(void)
 {
-    const int init_bufsize = 1024;
-    int bufsize = init_bufsize;
-    char *line = malloc(bufsize * sizeof(char));
-    int index = 0;
-    int c;
+	char *line = NULL;
+	size_t buflen = 0;
 
-    if (line == NULL) {
-        fprintf(stderr, "Memory allocation error\n");
-        exit(1);
-    }
-
-    if (isatty(STDIN_FILENO) == 1)
-        printf("($) ");
-
-    while (1) {
-        c = getchar();
-
-        if (c == EOF || c == '\n') {
-            line[index] = '\0';
-            break;
-        } else {
-            line[index] = c;
-        }
-
-        index++;
-
-        if (index >= bufsize) {
-            bufsize += init_bufsize;
-            char *new_line = realloc(line, bufsize * sizeof(char));
-            if (new_line == NULL) {
-                fprintf(stderr, "Memory allocation error\n");
-                free(line);
-                exit(1);
-            }
-            line = new_line;
-        }
-    }
-
-    return line;
-
+	if (isatty(STDIN_FILENO) == 1)
+		printf("($) ");
+	if (getline(&line, &buflen, stdin) < 0)
+	{
+		if (isatty(STDIN_FILENO) == 1)
+			printf("\n");
+		free(line);
+		exit(0);
+	}
+	return (line);
 }
 /**
  * _split_toks - splits command line args into tokens
