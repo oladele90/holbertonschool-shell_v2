@@ -39,6 +39,7 @@ char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
 char *_getline(void);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+int _strcmp(char *s1, char *s2);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif
