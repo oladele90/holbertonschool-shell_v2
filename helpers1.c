@@ -62,31 +62,22 @@ void _execute(char **args) {
     if (_strcmp(args[0], "cd") == 0) {
         // Handle 'cd' command
         if (args[1] == NULL) {
-            // No directory specified, change to home directory
-            struct passwd *pw = getpwuid(getuid());
-        if (pw == NULL) {
-            // Failed to get user information
-                perror("getpwuid");
-        return;
-        }
-    
-        if (chdir(pw->pw_dir) != 0) {
-            // Failed to change directory
-            perror("chdir");
-    }
-        } else {
+            change_to_home_directory();
+        }else {
             // Change to the specified directory
             if (chdir(args[1]) != 0) {
                 perror("chdir");
             }
         } 
-    }else if (_strcmp(args[0], "env") == 0) {
+    } else if (_strcmp(args[0], "env") == 0) {
     // Handle 'env' command
         char **env = environ;
         while (*env != NULL) {
             printf("%s\n", *env);
             env++;
         }
+    } else if (_strcmp(args[0], "exit") == 0) {
+        exit(0);
     }
     else {
         // Execute external program
@@ -104,5 +95,20 @@ void _execute(char **args) {
             // Parent process
             wait(NULL);
         }
+    }
+}
+
+void change_to_home_directory()
+{
+    struct passwd *pw = getpwuid(getuid());
+    if (pw == NULL) {
+        // Failed to get user information
+        perror("getpwuid");
+        return;
+    }
+    
+    if (chdir(pw->pw_dir) != 0) {
+        // Failed to change directory
+        perror("chdir");
     }
 }
