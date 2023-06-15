@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <limits.h>
 #include <signal.h>
+#include <pwd.h>
 
 /*extern char **environ;*/
 
@@ -40,6 +41,7 @@ list_t *add_node_end(list_t *head, const char *str);
 char *_getline(void);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int _strcmp(char *s1, char *s2);
+void change_to_home_directory();
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif
