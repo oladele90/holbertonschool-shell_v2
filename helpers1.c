@@ -63,14 +63,17 @@ void _execute(char **args) {
         // Handle 'cd' command
         if (args[1] == NULL) {
             // No directory specified, change to home directory
-            const char *home_dir = getenv("HOME");
-            if (home_dir == NULL) {
-                fprintf(stderr, "HOME environment variable is not set.\n");
-                return;
-            }
-            if (chdir(home_dir) != 0) {
-                perror("chdir");
-            }
+            struct passwd *pw = getpwuid(getuid());
+        if (pw == NULL) {
+            // Failed to get user information
+                perror("getpwuid");
+        return;
+        }
+    
+        if (chdir(pw->pw_dir) != 0) {
+            // Failed to change directory
+            perror("chdir");
+    }
         } else {
             // Change to the specified directory
             if (chdir(args[1]) != 0) {
