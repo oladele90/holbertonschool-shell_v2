@@ -14,14 +14,12 @@ int handle_builtins(char **args)
         {
             change_to_home_directory();
             prewd = cwd;
-            printf("%s\n", prewd);
             return (1);
         }
         else if (_strcmp(args[1], "-") == 0)
         {
             change_to_previous_directory();
             prewd = cwd;
-            printf("%s\n", prewd);
             return 1;
         }
         // Change to the specified directory
@@ -31,7 +29,6 @@ int handle_builtins(char **args)
             return 1;
         }
         prewd = cwd;
-        printf("%s\n", prewd);
         return 1;
     }
     else if (_strcmp(args[0], "env") == 0)
