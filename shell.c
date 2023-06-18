@@ -6,27 +6,25 @@
  * @av : argument vector
  *Return: 0 on success
  */
+char *prewd = NULL;
 
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
+int main(int argc __attribute__((unused)), char **argv __attribute__((unused)))
 {
-	/*list_t *h = NULL;*/
-	 /*
-	  *PATH = get_path(name);
-	  * printf("got path string: %s \n", PATH);
-	  *h = make_p_list(PATH, h);
-	  */
+    char *line;
+    char **argarr;
+    int builtin_flag;
 
-	char *l_s;/*, *PATH, *name = "PATH="*/
-	char **split_toks;
-
-	while (1)
-	{
-		l_s = _getline();
-		split_toks = _split_toks(l_s);
-		if (split_toks[0] != NULL)
-			_execute(split_toks);
-		free(split_toks);
-		free(l_s);
-		l_s = NULL;
-	}
+    while (1)
+    {
+        builtin_flag = 0;
+        line = _getline();
+        argarr = _split_toks(line, " \n");
+        builtin_flag = handle_builtins(argarr);
+        if ((argarr[0] != NULL) && (builtin_flag != 1))
+            _execute(argarr);
+        free(argarr);
+        free(line);
+        line = NULL;
+    }
+        
 }

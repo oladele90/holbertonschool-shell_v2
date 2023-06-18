@@ -1,8 +1,8 @@
 CC = gcc
-SRC = shell.c helpers1.c string_funcs.c
+SRC = shell.c helpers1.c string_funcs.c helpers2.c
 OBJ = ${SRC:.c=.o}
 NAME = hsh
-CFLAGS = -Wall -Werror -Wextra -pedantic -std=c11
+CFLAGS = -Wall -Werror -Wextra -pedantic -g -std=c11
 
 all: ${NAME}
 

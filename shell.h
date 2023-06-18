@@ -14,6 +14,7 @@
 #include <signal.h>
 #include <pwd.h>
 
+extern char *prewd;
 /*extern char **environ;*/
 
 /**
@@ -24,25 +25,40 @@
  * Description: singly linked list node structure
  *
  */
-
 typedef struct list_s
 {
 	char *str;
 	struct list_s *next;
 } list_t;
 
+typedef struct commands 
+{
+    char *command;
+    char *args[13];
+    char *redirection_file;
+    char *redirection;
+    int pipe;
+    struct CommandNode *next;
+} CommandNode;
+
+size_t _strlen(char *s);
 void free_list(list_t *head);
 size_t print_list(list_t *h);
 list_t *make_p_list(char *path, list_t *h);
-void _execute(char **args);
-char **_split_toks(char *line);
+int _execute(char **args);
+char **_split_toks(char *line, char *delim);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
 char *_getline(void);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int _strcmp(char *s1, char *s2);
-void change_to_home_directory();
+void change_to_home_directory(void);
 uid_t get_uid(void);
+char *_strdup(char *str);
+int _strncmp(const char* str1, const char* str2, int index);
+void update_env(char *new, char *var);
+int handle_builtins(char **args);
+void change_to_previous_directory(void);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif

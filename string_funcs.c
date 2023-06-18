@@ -17,7 +17,83 @@ int _strcmp(char *s1, char *s2)
 		if (s1[i] == s2[i])
 			i++;
 		else
-			return (s1[i] - s2[i]);
+			return (1);
 	}
-	return (s1[i] - s2[i]);
+	return (0);
+}
+
+/**
+ * _strncmp - compares strings up to n chars
+ * @str1: first string
+ * @str2: second string
+ * @index: number of characters
+ * Return: 0
+ */
+int _strncmp(const char *str1, const char *str2, int index)
+{
+	int i = 0, ret = 0;
+
+	while (str1[i] && str2[i] && (i < index))
+	{
+		if (str1[i] == str2[i])
+		{
+			i++;
+			continue;
+		}
+		else
+		{
+			ret = str1[i] - str2[i];
+			break;
+		}
+	}
+	return (ret);
+}
+
+char *_strdup(char *str)
+{
+	int i = 0;
+	int index = 0;
+	char *newstr;
+
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+	while (str[i] != '\0')
+	{
+		i++;
+		index++;
+	}
+	index++;
+
+	newstr = malloc(index * sizeof(char));
+	if (newstr == NULL)
+	{
+		return (NULL);
+	}
+
+	for (i = 0 ; i < index ; i++)
+	{
+		newstr[i] = str[i];
+	}
+
+	return (newstr);
+}
+
+/**
+ *_strlen - string to be counted
+ *@s: character in string
+ * Return: Always 0.
+ */
+
+size_t _strlen(char *s)
+{
+	int counter = 0;
+
+	while (*s != '\0')
+	{
+		counter++;
+		s++;
+	}
+	return (counter);
 }
