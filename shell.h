@@ -14,7 +14,7 @@
 #include <signal.h>
 #include <pwd.h>
 
-extern char *prewd;
+
 /*extern char **environ;*/
 
 /**
@@ -41,7 +41,6 @@ typedef struct commands
     struct CommandNode *next;
 } CommandNode;
 
-size_t _strlen(char *s);
 void free_list(list_t *head);
 size_t print_list(list_t *h);
 list_t *make_p_list(char *path, list_t *h);
@@ -55,10 +54,12 @@ int _strcmp(char *s1, char *s2);
 void change_to_home_directory(void);
 uid_t get_uid(void);
 char *_strdup(char *str);
-int _strncmp(const char* str1, const char* str2, int index);
-void update_env(char *new, char *var);
+int _strncmp(char* str1, char* str2, int index);
+void update_env(char *new, char *var, char ***environ);
 int handle_builtins(char **args);
 void change_to_previous_directory(void);
+int _strlen(char *s);
+char *_getenv(char *pathy);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif
