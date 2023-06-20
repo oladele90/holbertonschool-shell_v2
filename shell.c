@@ -15,6 +15,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
     static char **envp_copy = NULL;
     size_t env_count = 0;
     size_t copy_pos = 0;
+    size_t j;
     while (envp[env_count] != NULL)
     {
         env_count++;
@@ -25,12 +26,6 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
         envp_copy[copy_pos] = _strdup(envp[copy_pos]);
     }
     envp_copy[copy_pos] = NULL;
-    int i = 0;
-    while (envp_copy[i] != NULL)
-    {
-        printf("%s\n", envp_copy[i]);
-        i++;
-    }
     while (1)
     {
         builtin_flag = 0;
@@ -43,4 +38,10 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
         free(line);
         line = NULL;
     }
+    // Clean up: free the memory allocated for the environment copy
+    for (j = 0; j < env_count; j++)
+    {
+        free(envp_copy[j]);
+    }
+    free(envp_copy);
 }

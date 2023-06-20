@@ -46,6 +46,13 @@ int handle_builtins(char **args, char **envp_copy)
     }
     else if (_strcmp(args[0], "exit") == 0)
     {
+        int j;
+        if(envp_copy)
+        {
+            for (j = 0; envp_copy[j] != NULL; j++)
+                free(envp_copy[j]);
+            free(envp_copy);
+        }
         exit(0);
     }
 
@@ -107,9 +114,3 @@ char *_getenv(char *pathy, char **envp_copy)
     }
     return (NULL);
 }
-
-
-
-
-
-
