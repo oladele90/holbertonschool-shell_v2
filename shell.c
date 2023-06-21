@@ -9,8 +9,8 @@
 
 int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), char **envp)
 {
-    char *line;
-    char **argarr;
+    static char *line = NULL;
+    static char **argarr;
     int builtin_flag;
     static char **envp_copy = NULL;
     size_t env_count = 0;
@@ -23,13 +23,13 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
     envp_copy = malloc((env_count + 1) * sizeof(char *));
     for (copy_pos = 0; copy_pos < env_count; copy_pos++)
     {
-        envp_copy[copy_pos] = _strdup(envp[copy_pos]);
+        envp_copy[copy_pos] = _strdup(envp[copy_pos], envp_copy[copy_pos]);
     }
     envp_copy[copy_pos] = NULL;
     while (1)
     {
         builtin_flag = 0;
-        line = _getline();
+        line = _getline(line);
         argarr = _split_toks(line, " \n");
         builtin_flag = handle_builtins(argarr, envp_copy);
         if ((argarr[0] != NULL) && (builtin_flag != 1))

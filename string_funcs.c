@@ -50,11 +50,10 @@ int _strncmp(char *str1, char *str2, int index)
 	return (1);
 }
 
-char *_strdup(char *str)
+char *_strdup(char *str, char *new_str)
 {
 	int i = 0;
 	int index = 0;
-	char *newstr;
 
 	if (str == NULL)
 	{
@@ -67,25 +66,19 @@ char *_strdup(char *str)
 	}
 	index++;
 
-	newstr = malloc(index * sizeof(char));
-	if (newstr == NULL)
+	new_str = malloc(index * sizeof(char));
+	if (new_str == NULL)
 	{
 		return (NULL);
 	}
 
 	for (i = 0 ; i < index ; i++)
 	{
-		newstr[i] = str[i];
+		new_str[i] = str[i];
 	}
 
-	return (newstr);
+	return (new_str);
 }
-
-/**
- *_strlen - string to be counted
- *@s: character in string
- * Return: Always 0.
- */
 
 /**
  *_strlen - string to be counted
@@ -103,4 +96,24 @@ int _strlen(char *s)
 		s++;
 	}
 	return (counter);
+}
+
+/**
+ * _memcpy - copy n bytes from src to dest
+ * @src: the address of memory to print
+ * @n: the size of the memory to print
+ * @dest:memory to copy to
+ * Return: dest
+ */
+
+char *_memcpy(char *dest, char *src, unsigned int n)
+{
+	unsigned int i = 0;
+
+	while (i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	return (dest);
 }

@@ -36,12 +36,19 @@ int handle_builtins(char **args, char **envp_copy)
     }
     else if (_strcmp(args[0], "env") == 0)
     {
+        int j;
         // Handle 'env' command
         while (envp_copy[i] != NULL)
         {
             printf("%s\n", envp_copy[i]);
             i++;
         }
+        for (j = 0; envp_copy[j] != NULL; j++)
+            {
+                free(envp_copy[j]);
+                envp_copy[j] = NULL;
+            }
+        free(envp_copy);
         return 1;
     }
     else if (_strcmp(args[0], "exit") == 0)
@@ -50,8 +57,15 @@ int handle_builtins(char **args, char **envp_copy)
         if(envp_copy)
         {
             for (j = 0; envp_copy[j] != NULL; j++)
+            {
                 free(envp_copy[j]);
+                envp_copy[j] = NULL;
+            }
+            for (j = 0; args[j] != NULL; j++)
+                free(args[j]);
+
             free(envp_copy);
+            free(args);
         }
         exit(0);
     }
@@ -70,13 +84,13 @@ void update_env(char *new, char *var, char **envp_copy)
 
     // Find the existing "PWD=" environment variable and update it
     for (int i = 0; envp_copy[i] != NULL; i++) {
-        if (strncmp(envp_copy[i], var, _strlen(var)) == 0) {
+        if (_strncmp(envp_copy[i], var, _strlen(var)) == 0) {
             if (envp_copy[i] != NULL)
             {
                 free(envp_copy[i]);  // Free the old string
                 envp_copy[i] = NULL;
             }
-            envp_copy[i] = _strdup(new_var);  // Assign the new string
+            envp_copy[i] = _strdup(new_var, envp_copy[i]);  // Assign the new string
             free(new_var);
             return;
         }
