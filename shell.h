@@ -49,7 +49,7 @@ int _execute(char **args);
 char **_split_toks(char *line, char *delim);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);
-char *_getline(char *line);
+char *_getline(char *line, char **envp_copy);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 int _strcmp(char *s1, char *s2);
 void change_to_home_directory(void);

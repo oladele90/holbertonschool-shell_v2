@@ -51,7 +51,7 @@ int handle_builtins(char **args, char **envp_copy)
         free(envp_copy);
         return 1;
     }
-    else if (_strcmp(args[0], "exit") == 0)
+    else if ((_strcmp(args[0], "exit") == 0) || args[0][0] == EOF)
     {
         int j;
         if(envp_copy)

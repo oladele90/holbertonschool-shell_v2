@@ -29,7 +29,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
     while (1)
     {
         builtin_flag = 0;
-        line = _getline(line);
+        line = _getline(line, envp_copy);
         argarr = _split_toks(line, " \n");
         builtin_flag = handle_builtins(argarr, envp_copy);
         if ((argarr[0] != NULL) && (builtin_flag != 1))

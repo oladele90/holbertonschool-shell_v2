@@ -6,7 +6,7 @@
  * Return: command
  */
 
-char *_getline(char *line)
+char *_getline(char *line, char **envp_copy)
 {
 	size_t buflen = 0;
 
@@ -14,8 +14,15 @@ char *_getline(char *line)
 		printf("($) ");
 	if (getline(&line, &buflen, stdin) < 0)
 	{
+        int j = 0;
 		if (isatty(STDIN_FILENO) == 1)
 			printf("\n");
+        for (j = 0; envp_copy[j] != NULL; j++)
+            {
+                free(envp_copy[j]);
+                envp_copy[j] = NULL;
+            }
+        free(envp_copy);
 		free(line);
 		exit(0);
 	}
