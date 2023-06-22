@@ -45,7 +45,7 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 void free_list(list_t *head);
 size_t print_list(list_t *h);
 list_t *make_p_list(char *path, list_t *h);
-int _execute(char **args);
+int _execute(char **args, char **envp_copy);
 char **_split_toks(char *line, char *delim);
 char *get_path(char *name);
 list_t *add_node_end(list_t *head, const char *str);

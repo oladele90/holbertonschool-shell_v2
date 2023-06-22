@@ -59,7 +59,7 @@ char **_split_toks(char *line, char *delim)
  * @args : argument vector from command line
  */
 
-int _execute(char **args) 
+int _execute(char **args, char **envp_copy) 
 {
     // Execute external program
     pid_t child_pid = fork();
@@ -69,7 +69,7 @@ int _execute(char **args)
         return (-1);
     } else if (child_pid == 0) {
         // Child process
-        execve(args[0], args, NULL);
+        execve(args[0], args, envp_copy);
         perror("execve");
         exit(1);
     } else {

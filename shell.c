@@ -33,7 +33,7 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
         argarr = _split_toks(line, " \n");
         builtin_flag = handle_builtins(argarr, envp_copy);
         if ((argarr[0] != NULL) && (builtin_flag != 1))
-            _execute(argarr);
+            _execute(argarr, envp_copy);
         free(argarr);
         free(line);
         line = NULL;
