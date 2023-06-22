@@ -33,7 +33,16 @@ int main(int argc __attribute__((unused)), char **argv __attribute__((unused)), 
         argarr = _split_toks(line, " \n");
         builtin_flag = handle_builtins(argarr, envp_copy);
         if ((argarr[0] != NULL) && (builtin_flag != 1))
+        {
+            add_full_path(envp_copy, argarr);
             _execute(argarr, envp_copy);
+        }
+        int i = 0;
+        while (argarr[i] != NULL)
+        {
+            free(argarr[i]);
+            i++;
+        }
         free(argarr);
         free(line);
         line = NULL;

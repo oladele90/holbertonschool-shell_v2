@@ -128,3 +128,39 @@ char *_getenv(char *pathy, char **envp_copy)
     }
     return (NULL);
 }
+
+void add_full_path(char **envp_copy, char **argarr)
+{
+    char *full_path;
+    char *path_env = _getenv("PATH", envp_copy);
+
+    if (path_env == NULL)
+        return;
+
+    char *path = NULL;
+    path = _strdup(path_env, path);
+    char *token = strtok(path, ":");
+
+    while (token != NULL)
+    {
+        full_path = malloc(_strlen(token) + _strlen(argarr[0]) + 2);
+        _strcpy(full_path, token);
+        _strcat(full_path, "/");
+        _strcat(full_path, argarr[0]);
+
+        if (access(full_path, X_OK) == 0)
+        {
+            //free(argarr[0]);
+            //argarr[0] = NULL;
+            argarr[0] = _strdup(full_path, argarr[0]);
+            free(full_path);
+            free(path);
+            return;
+        }
+
+        free(full_path);
+        token = strtok(NULL, ":");
+    }
+
+    free(path);
+}
