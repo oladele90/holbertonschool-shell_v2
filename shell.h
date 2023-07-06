@@ -62,8 +62,6 @@ void change_to_previous_directory(char **envp_copy);
 int _strlen(char *s);
 char *_getenv(char *pathy, char **envp_copy);
 char *_strcpy(char *destination, char *source);
-void add_full_path(char **envp_copy, char **argarr);
-char *_strcat(char *dest, char *src);
 /*list_t *add_node_end(list_t *head, const char *str);*/
 
 #endif

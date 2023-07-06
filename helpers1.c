@@ -24,6 +24,7 @@ char *_getline(char *line, char **envp_copy)
             }
         free(envp_copy);
 		free(line);
+        line = NULL;
 		exit(0);
 	}
 	return (line);
@@ -51,6 +52,8 @@ char **_split_toks(char *line, char *delim)
         }
 	}
 	tokens[length] = NULL;
+    //free(line);
+    line = NULL;
 	return (tokens);
 }
 

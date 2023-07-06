@@ -36,19 +36,19 @@ int handle_builtins(char **args, char **envp_copy)
     }
     else if (_strcmp(args[0], "env") == 0)
     {
-        int j;
+        //int j;
         // Handle 'env' command
         while (envp_copy[i] != NULL)
         {
             printf("%s\n", envp_copy[i]);
             i++;
         }
-        for (j = 0; envp_copy[j] != NULL; j++)
-            {
-                free(envp_copy[j]);
-                envp_copy[j] = NULL;
-            }
-        free(envp_copy);
+        // for (j = 0; envp_copy[j] != NULL; j++)
+        //     {
+        //         free(envp_copy[j]);
+        //         envp_copy[j] = NULL;
+        //     }
+        // free(envp_copy);
         return 1;
     }
     else if ((_strcmp(args[0], "exit") == 0) || args[0][0] == EOF)
@@ -67,6 +67,7 @@ int handle_builtins(char **args, char **envp_copy)
             free(envp_copy);
             free(args);
         }
+        //free(line);
         exit(0);
     }
 
@@ -127,40 +128,4 @@ char *_getenv(char *pathy, char **envp_copy)
         i++;    
     }
     return (NULL);
-}
-
-void add_full_path(char **envp_copy, char **argarr)
-{
-    char *full_path;
-    char *path_env = _getenv("PATH", envp_copy);
-
-    if (path_env == NULL)
-        return;
-
-    char *path = NULL;
-    path = _strdup(path_env, path);
-    char *token = strtok(path, ":");
-
-    while (token != NULL)
-    {
-        full_path = malloc(_strlen(token) + _strlen(argarr[0]) + 2);
-        _strcpy(full_path, token);
-        _strcat(full_path, "/");
-        _strcat(full_path, argarr[0]);
-
-        if (access(full_path, X_OK) == 0)
-        {
-            //free(argarr[0]);
-            //argarr[0] = NULL;
-            argarr[0] = _strdup(full_path, argarr[0]);
-            free(full_path);
-            free(path);
-            return;
-        }
-
-        free(full_path);
-        token = strtok(NULL, ":");
-    }
-
-    free(path);
 }

@@ -1,0 +1,75 @@
+.TH SHELL-PROJECT 1 "July 2023" "Version 1.0" "Shell Project Manual"
+
+.SH NAME
+shell-project \- UNIX command line interpreter
+
+.SH SYNOPSIS
+.B This is an implementation of the Unix Shell. It is able to execute built-in commands [cd, cd -, cd /path/to/directory, exit, env] and also library functions as long as the path is provided.
+
+.SH DESCRIPTION
+.I shell-project
+is a simple UNIX command line interpreter that allows you to execute commands and perform basic shell operations. It provides a prompt for the user to enter commands, executes the commands, and displays the results. The prompt is displayed again after each command execution.
+
+.SH USAGE
+.B echo "qwerty" | ./hsh
+
+.SH COMMAND LINE SYNTAX
+.I shell-project
+supports the following command line syntax:
+
+
+.PP
+.B command [arguments]
+
+.PP
+Each command line ends with a new line.
+
+.SH BUILT-IN COMMANDS
+.I shell-project
+implements the following built-in commands:
+
+.PP
+.B exit [status]
+.RS
+Exits the shell. If an optional status is provided, the shell exits with that status. Behaves similarly to the exit command in sh.
+.RE
+
+.PP
+.B cd [path]
+.RS
+Changes the current directory of the shell process. If no argument is given, it changes to the home directory (\$HOME). Supports the command \fIcd -\fR to switch to the previous directory. Updates the PWD environment variable accordingly.
+.RE
+
+.PP
+.B env
+.RS
+Prints the current environment variables.
+.RE
+
+.SH ERROR HANDLING
+.I shell-project
+handles errors in the following ways:
+
+.PP
+- If an executable command cannot be found, an error message is displayed, and the prompt is displayed again.
+.PP
+- \fIshell-project\fR handles the "end of file" condition (Ctrl+D) gracefully.
+
+.SH ENVIRONMENT VARIABLES
+.I shell-project
+handles and parses the PATH environment variable to find executables.
+
+.SH AUTHOR
+Oladele Miro
+
+.SH REPORTING BUGS
+Report any bugs to oladelemiro07@gmail.com
+
+.SH SEE ALSO
+sh(1), bash(1)
+
+.SH COPYRIGHT
+This is free and unencumbered software released into the public domain.
+
+.SH NOTES
+This shell project was completed as part of a course and personal project.
